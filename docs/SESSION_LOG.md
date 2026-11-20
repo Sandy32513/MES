@@ -19,3 +19,4 @@
 - **Next Steps:**
   - Owner can optionally commission Ignition Maker Edition via `http://localhost:8088` using instructions in `docs/MANUAL_STEPS.md`.
   - To view live dashboards, open `http://localhost:3000` (admin/admin).
+  - Remote repository synchronized to `https://github.com/Sandy32513/MES.git` on branch `main`.
