@@ -1,0 +1,1 @@
+TC-ST-01 PASS: 0 overlapping status intervals found across all machines.

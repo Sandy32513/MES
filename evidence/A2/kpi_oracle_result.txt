@@ -1,0 +1,31 @@
+﻿=============================================================
+       INDEPENDENT KPI ORACLE & GOLDEN CASE VALIDATION       
+=============================================================
+
+[1] Theoretical Golden Values (Section 6.4):
+  Availability: 66.67% (Expected: 66.67%)
+  Performance:  83.33% (Expected: 83.33%)
+  Quality:      95.00% (Expected: 95.00%)
+  OEE:          52.78% (Expected: 52.78%)
+  Achievement:  83.33% (Expected: 83.33%)
+
+[2] Oracle Calculated Values (from raw database records):
+  Run Seconds:  2400 s | Idle: 600 s | Stop: 600 s
+  Total Window: 3600 s (3600 s = 60 min)
+  Total Produced: 400 | Good: 380 | Reject: 20
+  Availability: 66.67%
+  Performance:  83.33%
+  Quality:      95.00%
+  OEE:          52.78%
+  Achievement:  83.33%
+
+[3] SQL View (v_kpi_by_shift) Values:
+  View Total: 400, Good: 380, Reject: 20
+  View Run Sec: 2400
+  View Quality: 95.00%
+  View Achievement: 83.33%
+
+=============================================================
+TEST TC-KPI-01: PASS
+All KPIs match theoretical Golden Case within 0.01 percentage points!
+=============================================================

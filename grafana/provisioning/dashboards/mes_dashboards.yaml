@@ -1,0 +1,11 @@
+apiVersion: 1
+
+providers:
+  - name: "MES Dashboards"
+    type: file
+    disableDeletion: false
+    updateIntervalSeconds: 10
+    allowUiUpdates: true
+    options:
+      path: "D:\\MES\\mes-project\\grafana\\dashboards"
+      foldersFromFilesStructure: false

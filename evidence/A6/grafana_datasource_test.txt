@@ -1,0 +1,6 @@
+﻿
+message                status
+-------                ------
+Database Connection OK OK    
+
+

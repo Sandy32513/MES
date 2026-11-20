@@ -1,0 +1,14 @@
+﻿Connecting to OPC UA Server: opc.tcp://127.0.0.1:4840/mes/simulator...
+Connected successfully! Namespace index: 2
+  [TAG] Machine_Status  = 1          (type: int)
+  [TAG] Total_Count     = 17         (type: int)
+  [TAG] Good_Count      = 17         (type: int)
+  [TAG] Reject_Count    = 0          (type: int)
+  [TAG] Cycle_Time      = 5.144999980926514 (type: float)
+  [TAG] Temperature     = 54.849998474121094 (type: float)
+  [TAG] Target_Count    = 4800       (type: int)
+--- Validation Summary ---
+Status: PASS
+Total: 17 | Good: 17 | Reject: 0
+Invariant Good + Reject == Total: OK
+All 7 tags verified with correct types and plausible values.

@@ -1,0 +1,9 @@
+﻿Connecting to opc.tcp://127.0.0.1:4840/mes/simulator to verify counter invariant over 30 samples...
+
+=== TC-CNT-01 Counter Invariant Test Results ===
+Samples evaluated: 30
+Violations detected: 0
+First reading: Total=33, Good=33, Reject=0
+Latest reading: Total=48, Good=48, Reject=0
+Delta units produced during test: 15
+Test Result: PASS (Zero invariant violations across all samples)

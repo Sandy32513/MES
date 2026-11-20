@@ -1,0 +1,1 @@
+TC-FAIL-01 PASS: machine_status_log supports signed tinyint (-1 COMM_LOSS). Status changes and recovery are handled without script crash.

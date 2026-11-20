@@ -1,0 +1,5 @@
+﻿Grafana Version: 13.3.1 (Official OSS)
+Port: 3000
+Health Endpoint: http://localhost:3000/api/health
+HTTP Status: 200 OK
+Response: {"database":"ok","version":"13.3.1","commit":"da3aa3ff574e7dbbf808c66b6daa744defed0441"}

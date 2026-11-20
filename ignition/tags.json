@@ -1,0 +1,97 @@
+{
+  "name": "MES_Tags",
+  "tagType": "Folder",
+  "tags": [
+    {
+      "name": "Machine01",
+      "tagType": "Folder",
+      "tags": [
+        {
+          "name": "Machine_Status",
+          "tagType": "AtomicTag",
+          "valueSource": "opc",
+          "opcServer": "MES_SIM",
+          "opcItemPath": "ns=2;s=Machine01.Machine_Status",
+          "dataType": "Int4",
+          "documentation": "Machine status: 0=STOP, 1=RUN, 2=IDLE, -1=COMM_LOSS"
+        },
+        {
+          "name": "Total_Count",
+          "tagType": "AtomicTag",
+          "valueSource": "opc",
+          "opcServer": "MES_SIM",
+          "opcItemPath": "ns=2;s=Machine01.Total_Count",
+          "dataType": "Int4",
+          "documentation": "Total cumulative piece counter"
+        },
+        {
+          "name": "Good_Count",
+          "tagType": "AtomicTag",
+          "valueSource": "opc",
+          "opcServer": "MES_SIM",
+          "opcItemPath": "ns=2;s=Machine01.Good_Count",
+          "dataType": "Int4",
+          "documentation": "Good cumulative piece counter"
+        },
+        {
+          "name": "Reject_Count",
+          "tagType": "AtomicTag",
+          "valueSource": "opc",
+          "opcServer": "MES_SIM",
+          "opcItemPath": "ns=2;s=Machine01.Reject_Count",
+          "dataType": "Int4",
+          "documentation": "Reject cumulative piece counter"
+        },
+        {
+          "name": "Cycle_Time",
+          "tagType": "AtomicTag",
+          "valueSource": "opc",
+          "opcServer": "MES_SIM",
+          "opcItemPath": "ns=2;s=Machine01.Cycle_Time",
+          "dataType": "Float4",
+          "documentation": "Instantaneous cycle time in seconds"
+        },
+        {
+          "name": "Temperature",
+          "tagType": "AtomicTag",
+          "valueSource": "opc",
+          "opcServer": "MES_SIM",
+          "opcItemPath": "ns=2;s=Machine01.Temperature",
+          "dataType": "Float4",
+          "documentation": "Machine core temperature in deg C"
+        },
+        {
+          "name": "Target_Count",
+          "tagType": "AtomicTag",
+          "valueSource": "opc",
+          "opcServer": "MES_SIM",
+          "opcItemPath": "ns=2;s=Machine01.Target_Count",
+          "dataType": "Int4",
+          "documentation": "Shift target production count"
+        },
+        {
+          "name": "Comm_OK",
+          "tagType": "AtomicTag",
+          "valueSource": "expr",
+          "expression": "isGood({[default]MES/Machine01/Machine_Status})",
+          "dataType": "Boolean",
+          "documentation": "True when OPC UA communication to Machine 01 is healthy"
+        }
+      ]
+    },
+    {
+      "name": "Config",
+      "tagType": "Folder",
+      "tags": [
+        {
+          "name": "LogIntervalSec",
+          "tagType": "AtomicTag",
+          "valueSource": "memory",
+          "value": 5,
+          "dataType": "Int4",
+          "documentation": "Configurable logging interval in seconds (Decision D13)"
+        }
+      ]
+    }
+  ]
+}

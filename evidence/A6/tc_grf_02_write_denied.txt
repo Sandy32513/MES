@@ -1,0 +1,8 @@
+﻿=== TC-GRF-02: grafana_reader Write Attempt (Least Privilege) ===
+Attempted query: INSERT INTO production_log ...
+Response from MySQL:
+mysql: [Warning] Using a password on the command line interface can be insecure. ERROR 1142 (42000) at line 1: INSERT command denied to user 'grafana_reader'@'localhost' for table 'production_log'
+
+Verification:
+Write privileges (INSERT/UPDATE/DELETE) are denied to grafana_reader as required by Decision D9.
+Result: PASS

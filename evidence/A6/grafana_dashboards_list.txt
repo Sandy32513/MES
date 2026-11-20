@@ -1,0 +1,54 @@
+﻿[
+    {
+        "id":  2593982943277056,
+        "uid":  "mes-d1-production-overview",
+        "orgId":  1,
+        "title":  "MES: D1 - Production Overview",
+        "uri":  "db/mes3a-d1-production-overview",
+        "url":  "/d/mes-d1-production-overview/mes3a-d1-production-overview",
+        "slug":  "",
+        "type":  "dash-db",
+        "tags":  [
+                     "mes",
+                     "production"
+                 ],
+        "isStarred":  false,
+        "sortMeta":  0,
+        "isDeleted":  false
+    },
+    {
+        "id":  2593983308181504,
+        "uid":  "mes-d2-machine-monitoring",
+        "orgId":  1,
+        "title":  "MES: D2 - Machine Monitoring",
+        "uri":  "db/mes3a-d2-machine-monitoring",
+        "url":  "/d/mes-d2-machine-monitoring/mes3a-d2-machine-monitoring",
+        "slug":  "",
+        "type":  "dash-db",
+        "tags":  [
+                     "mes",
+                     "monitoring"
+                 ],
+        "isStarred":  false,
+        "sortMeta":  0,
+        "isDeleted":  false
+    },
+    {
+        "id":  2593983618560000,
+        "uid":  "mes-d3-production-analytics",
+        "orgId":  1,
+        "title":  "MES: D3 - Production Analytics",
+        "uri":  "db/mes3a-d3-production-analytics",
+        "url":  "/d/mes-d3-production-analytics/mes3a-d3-production-analytics",
+        "slug":  "",
+        "type":  "dash-db",
+        "tags":  [
+                     "analytics",
+                     "mes",
+                     "oee"
+                 ],
+        "isStarred":  false,
+        "sortMeta":  0,
+        "isDeleted":  false
+    }
+]

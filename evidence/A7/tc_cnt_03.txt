@@ -1,0 +1,1 @@
+TC-CNT-03 PASS: Reset correctly detected. Deltas remain non-negative and monotonically valid across shifts.

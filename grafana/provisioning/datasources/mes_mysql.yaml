@@ -1,0 +1,18 @@
+apiVersion: 1
+
+datasources:
+  - name: MES_MySQL
+    type: mysql
+    url: 127.0.0.1:3306
+    database: mes_production_db
+    user: grafana_reader
+    secureJsonData:
+      password: "${GF_DATASOURCE_MES_PASSWORD}"
+    jsonData:
+      maxOpenConns: 10
+      maxIdleConns: 5
+      connMaxLifetime: 14400
+      timezone: "UTC"
+    isDefault: true
+    editable: false
+    uid: "mes-mysql-ds"

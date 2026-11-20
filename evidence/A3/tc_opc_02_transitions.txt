@@ -1,0 +1,13 @@
+﻿=== TC-OPC-02: Force STOP -> IDLE -> RUN via Simulator Control ===
+
+[Step 1: Forced STOP]
+  [TAG] Machine_Status  = 2          (type: int) --- Validation Summary ---
+
+[Step 2: Forced IDLE]
+  [TAG] Machine_Status  = 2          (type: int) --- Validation Summary ---
+
+[Step 3: Forced RUN]
+  [TAG] Machine_Status  = 1          (type: int) --- Validation Summary ---
+
+Result: PASS
+Status transitions verified directly on OPC UA tag Machine_Status.

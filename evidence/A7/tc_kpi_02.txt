@@ -1,0 +1,4 @@
+TC-KPI-02 PASS:
+- Performance capped at 100.0% when raw output exceeds ideal rate.
+- Division by zero cleanly yields NULL/None without runtime exceptions.
+- Edge cases conform strictly to Decision D7.

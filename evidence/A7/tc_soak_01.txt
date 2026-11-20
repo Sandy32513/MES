@@ -1,0 +1,2 @@
+﻿total_samples	soak_start_utc	soak_end_utc	duration_seconds	units_produced	consistent_rows	inconsistent_rows
+73	2026-11-20 14:39:45.944	2026-11-20 14:46:06.944	381	310	73	0

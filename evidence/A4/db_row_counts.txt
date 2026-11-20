@@ -1,0 +1,13 @@
+﻿tbl	rows_count	latest
+production_log	5	2026-11-20 14:40:07.362
+machine_status_log	3	2026-11-20 14:40:04.167
+log_id	total_count	good_count	reject_count	cycle_time	temperature	recorded_at	data_quality	is_consistent
+12	284	279	5	5.270	51.15	2026-11-20 14:40:07.362	GOOD	1
+11	281	276	5	4.973	58.14	2026-11-20 14:40:02.003	GOOD	1
+10	277	272	5	4.653	74.56	2026-11-20 14:39:56.596	GOOD	1
+9	271	266	5	4.801	72.05	2026-11-20 14:39:51.352	GOOD	1
+8	266	261	5	5.392	71.39	2026-11-20 14:39:45.944	GOOD	1
+status_id	machine_status	start_time	end_time
+6	1	2026-11-20 14:40:04.167	NULL
+5	0	2026-11-20 14:40:00.823	2026-11-20 14:40:04.167
+4	1	2026-11-20 14:39:45.944	2026-11-20 14:40:00.823

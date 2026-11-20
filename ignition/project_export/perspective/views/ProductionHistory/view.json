@@ -1,0 +1,113 @@
+{
+  "custom": {},
+  "params": {},
+  "props": {
+    "defaultSize": {
+      "height": 768,
+      "width": 1024
+    }
+  },
+  "root": {
+    "type": "ia.container.flex",
+    "version": 0,
+    "props": {
+      "direction": "column",
+      "style": {
+        "backgroundColor": "#121826",
+        "padding": "24px",
+        "fontFamily": "Segoe UI, sans-serif"
+      }
+    },
+    "children": [
+      {
+        "type": "ia.display.label",
+        "version": 0,
+        "props": {
+          "text": "Screen 3: Production History & Records",
+          "style": {
+            "color": "#ffffff",
+            "fontSize": "26px",
+            "fontWeight": "bold",
+            "marginBottom": "20px"
+          }
+        }
+      },
+      {
+        "type": "ia.container.flex",
+        "version": 0,
+        "props": {
+          "direction": "row",
+          "gap": "16px",
+          "marginBottom": "20px",
+          "backgroundColor": "#1e293b",
+          "padding": "16px",
+          "borderRadius": "8px"
+        },
+        "children": [
+          {
+            "type": "ia.input.dropdown",
+            "version": 0,
+            "meta": { "name": "MachineSelector" },
+            "props": {
+              "options": [
+                { "label": "MC-001 (Machine 01)", "value": 1 }
+              ],
+              "value": 1
+            }
+          },
+          {
+            "type": "ia.input.dropdown",
+            "version": 0,
+            "meta": { "name": "ShiftSelector" },
+            "props": {
+              "options": [
+                { "label": "All Shifts", "value": "ALL" },
+                { "label": "Shift A (06:00 - 14:00)", "value": "Shift A" },
+                { "label": "Shift B (14:00 - 22:00)", "value": "Shift B" },
+                { "label": "Shift C (22:00 - 06:00)", "value": "Shift C" }
+              ],
+              "value": "ALL"
+            }
+          }
+        ]
+      },
+      {
+        "type": "ia.display.table",
+        "version": 0,
+        "meta": { "name": "ProductionRecordsTable" },
+        "props": {
+          "data": {
+            "binding": {
+              "type": "query",
+              "config": {
+                "queryPath": "GetProductionHistory",
+                "parameters": {
+                  "machine_id": 1
+                }
+              }
+            }
+          },
+          "columns": [
+            { "field": "log_id", "header": { "title": "Log ID" }, "width": 80 },
+            { "field": "recorded_at", "header": { "title": "Recorded At (UTC)" }, "width": 180 },
+            { "field": "total_count", "header": { "title": "Total" }, "width": 100 },
+            { "field": "good_count", "header": { "title": "Good" }, "width": 100 },
+            { "field": "reject_count", "header": { "title": "Reject" }, "width": 100 },
+            { "field": "cycle_time", "header": { "title": "Cycle Time (s)" }, "width": 120 },
+            { "field": "temperature", "header": { "title": "Temp (°C)" }, "width": 100 },
+            { "field": "data_quality", "header": { "title": "Quality" }, "width": 100 }
+          ],
+          "pager": {
+            "enabled": true,
+            "defaultPageSize": 25
+          },
+          "style": {
+            "backgroundColor": "#1e293b",
+            "color": "#ffffff",
+            "borderRadius": "8px"
+          }
+        }
+      }
+    ]
+  }
+}

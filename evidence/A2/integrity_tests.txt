@@ -1,0 +1,13 @@
+﻿=== TC-DB-02: Negative Integrity Tests Results ===
+
+Test 1: Foreign Key Violation (machine_id=999999)
+Result: mysql: [Warning] Using a password on the command line interface can be insecure. ERROR 1452 (23000) at line 1: Cannot add or update a child row: a foreign key constraint fails (`mes_production_db`.`production_log`, CONSTRAINT `fk_prod_machine` FOREIGN KEY (`machine_id`) REFERENCES `machine_master` (`machine_id`))
+
+Test 2: NOT NULL Violation (total_count=NULL)
+Result: mysql: [Warning] Using a password on the command line interface can be insecure. ERROR 1048 (23000) at line 1: Column 'total_count' cannot be null
+
+Test 3: Unique Key Violation (duplicate production_target)
+Result: mysql: [Warning] Using a password on the command line interface can be insecure. ERROR 1062 (23000) at line 1: Duplicate entry '1-2099-01-01-Shift A' for key 'production_target.uq_target'
+
+All integrity constraints are strictly enforced by MySQL InnoDB engine.
+Result: PASS

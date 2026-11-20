@@ -1,0 +1,61 @@
+{
+  "custom": {},
+  "params": {},
+  "props": {
+    "defaultSize": {
+      "height": 50,
+      "width": 1024
+    }
+  },
+  "root": {
+    "type": "ia.container.flex",
+    "version": 0,
+    "props": {
+      "direction": "row",
+      "style": {
+        "backgroundColor": "#0f172a",
+        "padding": "10px 24px",
+        "borderBottom": "1px solid #1e293b",
+        "alignItems": "center",
+        "gap": "20px"
+      }
+    },
+    "children": [
+      {
+        "type": "ia.display.label",
+        "version": 0,
+        "props": {
+          "text": "🏭 MES SYSTEM",
+          "style": { "color": "#38bdf8", "fontWeight": "bold", "fontSize": "18px", "marginRight": "20px" }
+        }
+      },
+      {
+        "type": "ia.navigation.link",
+        "version": 0,
+        "props": {
+          "text": "1. Production Dashboard",
+          "target": "/main",
+          "style": { "color": "#f8fafc", "textDecoration": "none", "fontWeight": "600" }
+        }
+      },
+      {
+        "type": "ia.navigation.link",
+        "version": 0,
+        "props": {
+          "text": "2. Machine Monitoring",
+          "target": "/monitor",
+          "style": { "color": "#94a3b8", "textDecoration": "none" }
+        }
+      },
+      {
+        "type": "ia.navigation.link",
+        "version": 0,
+        "props": {
+          "text": "3. Production History",
+          "target": "/history",
+          "style": { "color": "#94a3b8", "textDecoration": "none" }
+        }
+      }
+    ]
+  }
+}

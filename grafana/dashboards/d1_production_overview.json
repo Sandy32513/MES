@@ -1,0 +1,125 @@
+{
+  "annotations": { "list": [] },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": null,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "id": 1,
+      "gridPos": { "h": 6, "w": 6, "x": 0, "y": 0 },
+      "type": "stat",
+      "title": "Total Production",
+      "datasource": { "type": "mysql", "uid": "mes-mysql-ds" },
+      "targets": [
+        {
+          "rawSql": "SELECT COALESCE(MAX(total_count), 0) AS value FROM production_log WHERE machine_id = 1;",
+          "format": "table",
+          "refId": "A"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "fixed", "fixedColor": "blue" },
+          "unit": "short",
+          "noValue": "0"
+        }
+      }
+    },
+    {
+      "id": 2,
+      "gridPos": { "h": 6, "w": 6, "x": 6, "y": 0 },
+      "type": "stat",
+      "title": "Good Production",
+      "datasource": { "type": "mysql", "uid": "mes-mysql-ds" },
+      "targets": [
+        {
+          "rawSql": "SELECT COALESCE(MAX(good_count), 0) AS value FROM production_log WHERE machine_id = 1;",
+          "format": "table",
+          "refId": "A"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "fixed", "fixedColor": "green" },
+          "unit": "short",
+          "noValue": "0"
+        }
+      }
+    },
+    {
+      "id": 3,
+      "gridPos": { "h": 6, "w": 6, "x": 12, "y": 0 },
+      "type": "stat",
+      "title": "Rejected Production",
+      "datasource": { "type": "mysql", "uid": "mes-mysql-ds" },
+      "targets": [
+        {
+          "rawSql": "SELECT COALESCE(MAX(reject_count), 0) AS value FROM production_log WHERE machine_id = 1;",
+          "format": "table",
+          "refId": "A"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "fixed", "fixedColor": "red" },
+          "unit": "short",
+          "noValue": "0"
+        }
+      }
+    },
+    {
+      "id": 4,
+      "gridPos": { "h": 6, "w": 6, "x": 18, "y": 0 },
+      "type": "bargauge",
+      "title": "Target vs Actual",
+      "datasource": { "type": "mysql", "uid": "mes-mysql-ds" },
+      "targets": [
+        {
+          "rawSql": "SELECT 'Actual' AS metric, COALESCE(MAX(total_count), 0) AS value FROM production_log WHERE machine_id = 1 UNION ALL SELECT 'Target', COALESCE(MAX(target_quantity), 4800) FROM production_target WHERE machine_id = 1 AND production_date = CURDATE();",
+          "format": "table",
+          "refId": "A"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "palette-classic" },
+          "unit": "short"
+        }
+      }
+    },
+    {
+      "id": 5,
+      "gridPos": { "h": 10, "w": 24, "x": 0, "y": 6 },
+      "type": "timeseries",
+      "title": "Cumulative Production Count Over Time",
+      "datasource": { "type": "mysql", "uid": "mes-mysql-ds" },
+      "targets": [
+        {
+          "rawSql": "SELECT recorded_at AS time, total_count AS Total, good_count AS Good, reject_count AS Reject FROM production_log WHERE machine_id = 1 ORDER BY recorded_at;",
+          "format": "time_series",
+          "refId": "A"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "drawStyle": "line",
+            "lineInterpolation": "linear"
+          }
+        }
+      }
+    }
+  ],
+  "refresh": "5s",
+  "schemaVersion": 39,
+  "tags": ["mes", "production"],
+  "time": { "from": "now-1h", "to": "now" },
+  "timepicker": { "refresh_intervals": ["5s", "10s", "30s", "1m"] },
+  "timezone": "browser",
+  "title": "MES: D1 - Production Overview",
+  "uid": "mes-d1-production-overview",
+  "version": 1
+}

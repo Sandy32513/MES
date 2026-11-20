@@ -1,0 +1,151 @@
+{
+  "annotations": { "list": [] },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": null,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "id": 1,
+      "gridPos": { "h": 6, "w": 4, "x": 0, "y": 0 },
+      "type": "stat",
+      "title": "Availability",
+      "datasource": { "type": "mysql", "uid": "mes-mysql-ds" },
+      "targets": [
+        {
+          "rawSql": "SELECT COALESCE(availability_pct, 100.0) AS value FROM v_kpi_by_shift WHERE machine_id = 1 ORDER BY production_date DESC LIMIT 1;",
+          "format": "table",
+          "refId": "A"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": { "unit": "percent", "noValue": "N/A", "color": { "mode": "fixed", "fixedColor": "green" } }
+      }
+    },
+    {
+      "id": 2,
+      "gridPos": { "h": 6, "w": 4, "x": 4, "y": 0 },
+      "type": "stat",
+      "title": "Performance",
+      "datasource": { "type": "mysql", "uid": "mes-mysql-ds" },
+      "targets": [
+        {
+          "rawSql": "SELECT COALESCE(performance_pct, 100.0) AS value FROM v_kpi_by_shift WHERE machine_id = 1 ORDER BY production_date DESC LIMIT 1;",
+          "format": "table",
+          "refId": "A"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": { "unit": "percent", "noValue": "N/A", "color": { "mode": "fixed", "fixedColor": "blue" } }
+      }
+    },
+    {
+      "id": 3,
+      "gridPos": { "h": 6, "w": 4, "x": 8, "y": 0 },
+      "type": "stat",
+      "title": "Quality",
+      "datasource": { "type": "mysql", "uid": "mes-mysql-ds" },
+      "targets": [
+        {
+          "rawSql": "SELECT COALESCE(quality_pct, 100.0) AS value FROM v_kpi_by_shift WHERE machine_id = 1 ORDER BY production_date DESC LIMIT 1;",
+          "format": "table",
+          "refId": "A"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": { "unit": "percent", "noValue": "N/A", "color": { "mode": "fixed", "fixedColor": "yellow" } }
+      }
+    },
+    {
+      "id": 4,
+      "gridPos": { "h": 6, "w": 6, "x": 12, "y": 0 },
+      "type": "stat",
+      "title": "Overall Equipment Effectiveness (OEE)",
+      "datasource": { "type": "mysql", "uid": "mes-mysql-ds" },
+      "targets": [
+        {
+          "rawSql": "SELECT COALESCE(oee_pct, 100.0) AS value FROM v_kpi_by_shift WHERE machine_id = 1 ORDER BY production_date DESC LIMIT 1;",
+          "format": "table",
+          "refId": "A"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent",
+          "noValue": "N/A",
+          "color": { "mode": "thresholds" },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              { "color": "red", "value": null },
+              { "color": "yellow", "value": 50 },
+              { "color": "green", "value": 75 }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": 5,
+      "gridPos": { "h": 6, "w": 6, "x": 18, "y": 0 },
+      "type": "stat",
+      "title": "Production Achievement %",
+      "datasource": { "type": "mysql", "uid": "mes-mysql-ds" },
+      "targets": [
+        {
+          "rawSql": "SELECT COALESCE(achievement_pct, 0.0) AS value FROM v_kpi_by_shift WHERE machine_id = 1 ORDER BY production_date DESC LIMIT 1;",
+          "format": "table",
+          "refId": "A"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent",
+          "noValue": "N/A",
+          "color": { "mode": "fixed", "fixedColor": "purple" }
+        }
+      }
+    },
+    {
+      "id": 6,
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 6 },
+      "type": "barchart",
+      "title": "Hourly Production Trend (Delta-Based)",
+      "datasource": { "type": "mysql", "uid": "mes-mysql-ds" },
+      "targets": [
+        {
+          "rawSql": "SELECT hour_bucket AS Metric, total_produced AS Total, good_produced AS Good, reject_produced AS Reject FROM v_hourly_production WHERE machine_id = 1 ORDER BY hour_bucket;",
+          "format": "table",
+          "refId": "A"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": { "unit": "short" }
+      }
+    },
+    {
+      "id": 7,
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 6 },
+      "type": "table",
+      "title": "Shift-Wise Production Summary",
+      "datasource": { "type": "mysql", "uid": "mes-mysql-ds" },
+      "targets": [
+        {
+          "rawSql": "SELECT production_date, shift_name, total_produced, good_produced, reject_produced FROM v_production_by_shift WHERE machine_id = 1 ORDER BY production_date DESC, shift_name;",
+          "format": "table",
+          "refId": "A"
+        }
+      ]
+    }
+  ],
+  "refresh": "10s",
+  "schemaVersion": 39,
+  "tags": ["mes", "analytics", "oee"],
+  "time": { "from": "now-6h", "to": "now" },
+  "timezone": "browser",
+  "title": "MES: D3 - Production Analytics",
+  "uid": "mes-d3-production-analytics",
+  "version": 1
+}

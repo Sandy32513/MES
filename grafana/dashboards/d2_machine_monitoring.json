@@ -1,0 +1,183 @@
+{
+  "annotations": { "list": [] },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": null,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "id": 1,
+      "gridPos": { "h": 6, "w": 6, "x": 0, "y": 0 },
+      "type": "stat",
+      "title": "Current Machine Status",
+      "datasource": { "type": "mysql", "uid": "mes-mysql-ds" },
+      "targets": [
+        {
+          "rawSql": "SELECT CASE machine_status WHEN 1 THEN 'RUN' WHEN 0 THEN 'STOP' WHEN 2 THEN 'IDLE' ELSE 'COMM LOSS' END AS value FROM machine_status_log WHERE machine_id = 1 ORDER BY status_id DESC LIMIT 1;",
+          "format": "table",
+          "refId": "A"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "thresholds" },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              { "color": "red", "value": null },
+              { "color": "green", "value": 1 }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": 2,
+      "gridPos": { "h": 6, "w": 6, "x": 6, "y": 0 },
+      "type": "stat",
+      "title": "Machine Temperature (°C)",
+      "datasource": { "type": "mysql", "uid": "mes-mysql-ds" },
+      "targets": [
+        {
+          "rawSql": "SELECT temperature AS value FROM production_log WHERE machine_id = 1 ORDER BY log_id DESC LIMIT 1;",
+          "format": "table",
+          "refId": "A"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "celsius",
+          "color": { "mode": "thresholds" },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              { "color": "green", "value": null },
+              { "color": "yellow", "value": 70 },
+              { "color": "red", "value": 85 }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": 3,
+      "gridPos": { "h": 6, "w": 6, "x": 12, "y": 0 },
+      "type": "stat",
+      "title": "Current Cycle Time (s)",
+      "datasource": { "type": "mysql", "uid": "mes-mysql-ds" },
+      "targets": [
+        {
+          "rawSql": "SELECT cycle_time AS value FROM production_log WHERE machine_id = 1 ORDER BY log_id DESC LIMIT 1;",
+          "format": "table",
+          "refId": "A"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "s",
+          "color": { "mode": "fixed", "fixedColor": "purple" }
+        }
+      }
+    },
+    {
+      "id": 4,
+      "gridPos": { "h": 6, "w": 6, "x": 18, "y": 0 },
+      "type": "stat",
+      "title": "Shift Availability %",
+      "datasource": { "type": "mysql", "uid": "mes-mysql-ds" },
+      "targets": [
+        {
+          "rawSql": "SELECT COALESCE(availability_pct, 100.0) AS value FROM v_kpi_by_shift WHERE machine_id = 1 ORDER BY production_date DESC LIMIT 1;",
+          "format": "table",
+          "refId": "A"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent",
+          "color": { "mode": "thresholds" },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              { "color": "red", "value": null },
+              { "color": "yellow", "value": 60 },
+              { "color": "green", "value": 80 }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": 5,
+      "gridPos": { "h": 8, "w": 24, "x": 0, "y": 6 },
+      "type": "state-timeline",
+      "title": "Machine State Timeline (0=STOP, 1=RUN, 2=IDLE, -1=COMM_LOSS)",
+      "datasource": { "type": "mysql", "uid": "mes-mysql-ds" },
+      "targets": [
+        {
+          "rawSql": "SELECT start_time AS time, machine_status AS value FROM machine_status_log WHERE machine_id = 1 ORDER BY start_time;",
+          "format": "time_series",
+          "refId": "A"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "thresholds" },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              { "color": "grey", "value": -1 },
+              { "color": "red", "value": 0 },
+              { "color": "green", "value": 1 },
+              { "color": "yellow", "value": 2 }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": 6,
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 14 },
+      "type": "timeseries",
+      "title": "Machine Temperature Trend",
+      "datasource": { "type": "mysql", "uid": "mes-mysql-ds" },
+      "targets": [
+        {
+          "rawSql": "SELECT recorded_at AS time, temperature AS Temperature FROM production_log WHERE machine_id = 1 ORDER BY recorded_at;",
+          "format": "time_series",
+          "refId": "A"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": { "unit": "celsius" }
+      }
+    },
+    {
+      "id": 7,
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 14 },
+      "type": "timeseries",
+      "title": "Cycle Time Trend",
+      "datasource": { "type": "mysql", "uid": "mes-mysql-ds" },
+      "targets": [
+        {
+          "rawSql": "SELECT recorded_at AS time, cycle_time AS CycleTime FROM production_log WHERE machine_id = 1 ORDER BY recorded_at;",
+          "format": "time_series",
+          "refId": "A"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": { "unit": "s" }
+      }
+    }
+  ],
+  "refresh": "5s",
+  "schemaVersion": 39,
+  "tags": ["mes", "monitoring"],
+  "time": { "from": "now-1h", "to": "now" },
+  "timezone": "browser",
+  "title": "MES: D2 - Machine Monitoring",
+  "uid": "mes-d2-machine-monitoring",
+  "version": 1
+}

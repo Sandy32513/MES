@@ -1,0 +1,212 @@
+{
+  "custom": {},
+  "params": {},
+  "props": {
+    "defaultSize": {
+      "height": 768,
+      "width": 1024
+    }
+  },
+  "root": {
+    "type": "ia.container.flex",
+    "version": 0,
+    "props": {
+      "direction": "column",
+      "style": {
+        "backgroundColor": "#121826",
+        "padding": "24px",
+        "fontFamily": "Segoe UI, sans-serif"
+      }
+    },
+    "children": [
+      {
+        "type": "ia.display.label",
+        "version": 0,
+        "props": {
+          "text": "Screen 1: Main Production Dashboard",
+          "style": {
+            "color": "#ffffff",
+            "fontSize": "26px",
+            "fontWeight": "bold",
+            "marginBottom": "20px"
+          }
+        }
+      },
+      {
+        "type": "ia.container.flex",
+        "version": 0,
+        "props": {
+          "direction": "row",
+          "gap": "20px",
+          "marginBottom": "24px"
+        },
+        "children": [
+          {
+            "type": "ia.display.label",
+            "version": 0,
+            "meta": { "name": "StatusIndicator" },
+            "props": {
+              "text": {
+                "binding": {
+                  "type": "expr",
+                  "config": {
+                    "expression": "if({[default]MES/Machine01/Comm_OK}, if({[default]MES/Machine01/Machine_Status} = 0, 'STOP', if({[default]MES/Machine01/Machine_Status} = 1, 'RUN', 'IDLE')), 'COMM LOSS')"
+                  }
+                }
+              },
+              "style": {
+                "binding": {
+                  "type": "expr",
+                  "config": {
+                    "expression": "if({[default]MES/Machine01/Comm_OK}, if({[default]MES/Machine01/Machine_Status} = 0, '{\"backgroundColor\":\"#dc3545\",\"color\":\"#ffffff\",\"padding\":\"12px 28px\",\"borderRadius\":\"6px\",\"fontSize\":\"18px\",\"fontWeight\":\"bold\"}', if({[default]MES/Machine01/Machine_Status} = 1, '{\"backgroundColor\":\"#28a745\",\"color\":\"#ffffff\",\"padding\":\"12px 28px\",\"borderRadius\":\"6px\",\"fontSize\":\"18px\",\"fontWeight\":\"bold\"}', '{\"backgroundColor\":\"#ffc107\",\"color\":\"#000000\",\"padding\":\"12px 28px\",\"borderRadius\":\"6px\",\"fontSize\":\"18px\",\"fontWeight\":\"bold\"}')), '{\"backgroundColor\":\"#6c757d\",\"color\":\"#ffffff\",\"padding\":\"12px 28px\",\"borderRadius\":\"6px\",\"fontSize\":\"18px\",\"fontWeight\":\"bold\"}')"
+                  }
+                }
+              }
+            }
+          }
+        ]
+      },
+      {
+        "type": "ia.container.flex",
+        "version": 0,
+        "props": {
+          "direction": "row",
+          "gap": "16px",
+          "flexWrap": "wrap"
+        },
+        "children": [
+          {
+            "type": "ia.display.label",
+            "version": 0,
+            "meta": { "name": "TotalCountCard" },
+            "props": {
+              "text": {
+                "binding": {
+                  "type": "tag",
+                  "config": {
+                    "path": "[default]MES/Machine01/Total_Count"
+                  }
+                }
+              },
+              "style": {
+                "color": "#ffffff",
+                "fontSize": "36px",
+                "fontWeight": "bold",
+                "backgroundColor": "#1e293b",
+                "padding": "24px",
+                "borderRadius": "8px",
+                "minWidth": "200px",
+                "textAlign": "center",
+                "border": "1px solid #334155"
+              }
+            }
+          },
+          {
+            "type": "ia.display.label",
+            "version": 0,
+            "meta": { "name": "GoodCountCard" },
+            "props": {
+              "text": {
+                "binding": {
+                  "type": "tag",
+                  "config": {
+                    "path": "[default]MES/Machine01/Good_Count"
+                  }
+                }
+              },
+              "style": {
+                "color": "#22c55e",
+                "fontSize": "36px",
+                "fontWeight": "bold",
+                "backgroundColor": "#1e293b",
+                "padding": "24px",
+                "borderRadius": "8px",
+                "minWidth": "200px",
+                "textAlign": "center",
+                "border": "1px solid #334155"
+              }
+            }
+          },
+          {
+            "type": "ia.display.label",
+            "version": 0,
+            "meta": { "name": "RejectCountCard" },
+            "props": {
+              "text": {
+                "binding": {
+                  "type": "tag",
+                  "config": {
+                    "path": "[default]MES/Machine01/Reject_Count"
+                  }
+                }
+              },
+              "style": {
+                "color": "#ef4444",
+                "fontSize": "36px",
+                "fontWeight": "bold",
+                "backgroundColor": "#1e293b",
+                "padding": "24px",
+                "borderRadius": "8px",
+                "minWidth": "200px",
+                "textAlign": "center",
+                "border": "1px solid #334155"
+              }
+            }
+          },
+          {
+            "type": "ia.display.label",
+            "version": 0,
+            "meta": { "name": "TargetCountCard" },
+            "props": {
+              "text": {
+                "binding": {
+                  "type": "tag",
+                  "config": {
+                    "path": "[default]MES/Machine01/Target_Count"
+                  }
+                }
+              },
+              "style": {
+                "color": "#eab308",
+                "fontSize": "36px",
+                "fontWeight": "bold",
+                "backgroundColor": "#1e293b",
+                "padding": "24px",
+                "borderRadius": "8px",
+                "minWidth": "200px",
+                "textAlign": "center",
+                "border": "1px solid #334155"
+              }
+            }
+          },
+          {
+            "type": "ia.display.label",
+            "version": 0,
+            "meta": { "name": "AchievementCard" },
+            "props": {
+              "text": {
+                "binding": {
+                  "type": "expr",
+                  "config": {
+                    "expression": "if({[default]MES/Machine01/Target_Count} > 0, concat(round(float({[default]MES/Machine01/Total_Count}) / float({[default]MES/Machine01/Target_Count}) * 100.0, 1), '%'), 'N/A')"
+                  }
+                }
+              },
+              "style": {
+                "color": "#38bdf8",
+                "fontSize": "36px",
+                "fontWeight": "bold",
+                "backgroundColor": "#1e293b",
+                "padding": "24px",
+                "borderRadius": "8px",
+                "minWidth": "200px",
+                "textAlign": "center",
+                "border": "1px solid #334155"
+              }
+            }
+          }
+        ]
+      }
+    ]
+  }
+}
