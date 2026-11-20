@@ -1,1 +1,1 @@
-TC-CNT-02 PASS: Delta total (0) == Delta good (0) + Delta reject (0)
+TC-CNT-02 PASS: Delta total (1) == Delta good (1) + Delta reject (0)

@@ -59,9 +59,19 @@ def test_tc_cnt_02_compare_deltas():
     r1 = list(map(int, rows[0].split()))
     r0 = list(map(int, rows[1].split()))
     
-    delta_total = r1[1] - r0[1]
-    delta_good = r1[2] - r0[2]
-    delta_reject = r1[3] - r0[3]
+    # Check invariant on each row: Total == Good + Reject
+    assert r1[1] == r1[2] + r1[3], f"Row 1 invariant failed: {r1[1]} != {r1[2]} + {r1[3]}"
+    assert r0[1] == r0[2] + r0[3], f"Row 0 invariant failed: {r0[1]} != {r0[2]} + {r0[3]}"
+    
+    if r1[1] < r0[1]:
+        print("  Detected counter reset between runs per Decision D6: current value is delta.")
+        delta_total = r1[1]
+        delta_good = r1[2]
+        delta_reject = r1[3]
+    else:
+        delta_total = r1[1] - r0[1]
+        delta_good = r1[2] - r0[2]
+        delta_reject = r1[3] - r0[3]
     
     print(f"  Row 1: Total={r1[1]}, Good={r1[2]}, Reject={r1[3]}")
     print(f"  Row 0: Total={r0[1]}, Good={r0[2]}, Reject={r0[3]}")
@@ -87,18 +97,22 @@ def test_tc_cnt_03_counter_reset():
     t1 = (now - datetime.timedelta(seconds=20)).strftime("%Y-%m-%d %H:%M:%S.000")
     t2 = (now - datetime.timedelta(seconds=10)).strftime("%Y-%m-%d %H:%M:%S.000")
     
-    # We test on MC-GOLDEN
+    # We test on dedicated test machine MC-RESET to preserve Golden fixture isolation
     q_reset = f"""
-    SET @gmid = (SELECT machine_id FROM machine_master WHERE machine_code = 'MC-GOLDEN');
+    INSERT INTO machine_master (machine_name, machine_code, machine_location, is_active, ideal_cycle_time_sec)
+    VALUES ('Reset Test Machine', 'MC-RESET', 'QA Test Cell', 1, 5.000)
+    ON DUPLICATE KEY UPDATE ideal_cycle_time_sec = 5.000;
+    SET @rmid = (SELECT machine_id FROM machine_master WHERE machine_code = 'MC-RESET');
+    DELETE FROM production_log WHERE machine_id = @rmid;
     INSERT INTO production_log (machine_id, total_count, good_count, reject_count, recorded_at, data_quality)
-    VALUES (@gmid, 500, 480, 20, '{t1}', 'GOOD');
+    VALUES (@rmid, 500, 480, 20, '{t1}', 'GOOD');
     INSERT INTO production_log (machine_id, total_count, good_count, reject_count, recorded_at, data_quality)
-    VALUES (@gmid, 15, 14, 1, '{t2}', 'GOOD');
+    VALUES (@rmid, 15, 14, 1, '{t2}', 'GOOD');
     """
     query_db(q_reset)
     
     # Check v_production_by_shift: reset must not yield negative production
-    q_view = "SELECT shift_name, total_produced FROM v_production_by_shift WHERE machine_id = (SELECT machine_id FROM machine_master WHERE machine_code='MC-GOLDEN');"
+    q_view = "SELECT shift_name, total_produced FROM v_production_by_shift WHERE machine_id = (SELECT machine_id FROM machine_master WHERE machine_code='MC-RESET');"
     rows = query_db(q_view).splitlines()
     for r in rows:
         parts = r.split()

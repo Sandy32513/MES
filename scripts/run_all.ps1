@@ -1,4 +1,4 @@
-# ============================================================
+﻿# ============================================================
 # run_all.ps1 — Start all MES components
 # Usage: powershell -ExecutionPolicy Bypass -File scripts\run_all.ps1
 # ============================================================
@@ -31,22 +31,24 @@ if ($grafana -and $grafana.Status -eq "Running") {
 
 # 3. Start Simulator Daemon
 Write-Host "[3/4] Launching OPC UA Simulator..." -ForegroundColor Cyan
-$existingSim = Get-Process python -ErrorAction SilentlyContinue | Where-Object { $_.CommandLine -match "mes_simulator.py" }
+$pyProcs = Get-CimInstance Win32_Process -Filter "name = 'python.exe'" -ErrorAction SilentlyContinue
+$existingSim = $pyProcs | Where-Object { $_.CommandLine -match "mes_simulator.py" }
 if (-not $existingSim) {
-    Start-Process python -ArgumentList "$root\simulator\mes_simulator.py --scenario normal --time-scale 5.0 --control-file $root\simulator\control.json" -WorkingDirectory $root -NoNewWindow
+    Start-Process python -ArgumentList "$root\simulator\mes_simulator.py --scenario normal --time-scale 5.0 --control-file $root\simulator\control.json" -WorkingDirectory $root
     Start-Sleep 2
 } else {
-    Write-Host "  Simulator already running (PID $($existingSim.Id))." -ForegroundColor Green
+    Write-Host "  Simulator already running (PID $($existingSim.ProcessId))." -ForegroundColor Green
 }
 
 # 4. Start Pipeline Logger Daemon
 Write-Host "[4/4] Launching Data Pipeline Logger..." -ForegroundColor Cyan
-$existingLog = Get-Process python -ErrorAction SilentlyContinue | Where-Object { $_.CommandLine -match "data_logger.py" }
+$pyProcs = Get-CimInstance Win32_Process -Filter "name = 'python.exe'" -ErrorAction SilentlyContinue
+$existingLog = $pyProcs | Where-Object { $_.CommandLine -match "data_logger.py" }
 if (-not $existingLog) {
-    Start-Process python -ArgumentList "$root\simulator\data_logger.py" -WorkingDirectory $root -NoNewWindow
+    Start-Process python -ArgumentList "$root\simulator\data_logger.py" -WorkingDirectory $root
     Start-Sleep 2
 } else {
-    Write-Host "  Pipeline logger already running (PID $($existingLog.Id))." -ForegroundColor Green
+    Write-Host "  Pipeline logger already running (PID $($existingLog.ProcessId))." -ForegroundColor Green
 }
 
 Write-Host "==========================================" -ForegroundColor Cyan
