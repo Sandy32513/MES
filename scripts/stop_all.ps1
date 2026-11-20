@@ -1,4 +1,4 @@
-﻿# ============================================================
+# ============================================================
 # stop_all.ps1 — Stop MES background processes
 # Usage: powershell -ExecutionPolicy Bypass -File scripts\stop_all.ps1
 # ============================================================

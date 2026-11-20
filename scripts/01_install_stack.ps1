@@ -1,4 +1,4 @@
-﻿# ============================================================
+# ============================================================
 # 01_install_stack.ps1 — MES Stack Installation & Verification
 # Idempotent script: checks and configures stack components
 # ============================================================
